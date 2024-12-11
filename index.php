@@ -9,6 +9,13 @@
     <title>Document</title>
 </head>
 <body>
-    Test
+    <button id="myButton">Add images</button> 
+    <br>
+    <input type="number">
+    <br>
+    <select name="mySelect" id="mySelect">
+    <option value="Cat"></option>
+    <option value="Dog"></option>
+    </select>
 </body>
 </html>
