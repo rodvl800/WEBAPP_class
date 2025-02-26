@@ -25,8 +25,11 @@ function encrypt($text, $table) {
     
     for ($i = 0; $i < $length; $i++) {
         $char = $text[$i];
-        // If character exists in the table, replace it; otherwise, keep it as is
-        $result .= isset($table[$char]) ? $table[$char] : $char;
+        if (isset($table[$char])) {
+            $result .= $table[$char];
+        } else {
+            $result .= $char;
+        }
     }
     
     return $result;
@@ -34,17 +37,27 @@ function encrypt($text, $table) {
 
 // Function to decrypt text
 function decrypt($text, $table) {
-    return encrypt($text, $table); // The process is the same, just with a different table
+    return encrypt($text, $table);
 }
 
-// Process form submission
+// Form submission
 $result = '';
 $inputText = '';
-$action = 'encrypt'; // Default action
+$action = 'encrypt';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $inputText = isset($_POST['input_text']) ? $_POST['input_text'] : '';
-    $action = isset($_POST['action']) ? $_POST['action'] : 'encrypt';
+    if (isset($_POST['input_text'])) {
+        $inputText = $_POST['input_text'];
+    } else {
+        $inputText = '';
+    }
+    
+    if (isset($_POST['action'])) {
+        $action = $_POST['action'];
+    } else {
+        $action = 'encrypt'; // Default action
+    }
+
     
     if ($action === 'encrypt') {
         $result = encrypt($inputText, $encryptionTable);
